@@ -1,0 +1,56 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: cibuilds/hugo:latest
+    branches:
+        only:
+          - master
+    steps:
+
+
+
+      # git get
+      - run: apk update && apk add git
+      
+      # blogリポジトリのデータを取得する
+      - run: mkdir chk
+      - checkout: 
+          path: chk
+      
+      # hugoでTIL作る
+      - run: hugo new site TIL
+      
+
+      # ビルドしてユーザページサイトにPushする
+      - deploy:
+          command: |    
+              
+              git config --global user.email "mi.ki.ri.hassha.p@gmail.com"
+              git config --global user.name "mi-ki-ri"
+              git init
+              
+              rm -rf ./*
+
+              git remote add origin https://github.com/mi-ki-ri/TIL-Web.git
+              #git add .
+              #git commit -m "CircleCI"
+              git pull origin master --allow-unrelated-histories --no-edit
+              rm -rf ./*
+
+              git submodule add https://github.com/siegerts/hugo-theme-basic.git themes/hugo-theme-basic
+              echo 'theme = "hugo-theme-basic"' >> config.toml 
+
+              cp -fr ../chk ../TIL/content
+              hugo
+
+              cp -fr ./public/. ../tmp
+              cp -fr ../tmp/. ../TIL
+
+              ls
+
+              git add .
+              git commit -m "CircleCI"
+
+              git push -u origin master
+          working_directory: TIL
