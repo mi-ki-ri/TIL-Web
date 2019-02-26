@@ -15,6 +15,10 @@
   </url>
   
   <url>
+    <loc>https://mi-ki-ri.github.io/TIL-Web/ios/cameraondevicevssim/</loc>
+  </url>
+  
+  <url>
     <loc>https://mi-ki-ri.github.io/TIL-Web/categories/</loc>
     <priority>0</priority>
   </url>
@@ -26,6 +30,11 @@
   
   <url>
     <loc>https://mi-ki-ri.github.io/TIL-Web/info/</loc>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://mi-ki-ri.github.io/TIL-Web/ios/</loc>
     <priority>0</priority>
   </url>
   
